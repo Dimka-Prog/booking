@@ -11,5 +11,4 @@ config = {
 app.config.from_mapping(config)
 
 
-
-import controllers.index
+import Controller.index

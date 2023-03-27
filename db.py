@@ -1,7 +1,9 @@
 import sqlite3
 from flask import g
 from app import app
+
 DATABASE = 'database/database.db'
+
 
 def get_db():
     # функция получение текущего подключения бд

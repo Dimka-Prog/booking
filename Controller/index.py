@@ -3,10 +3,12 @@ from flask import Flask, render_template, request, session, flash, url_for, g
 from werkzeug.utils import redirect
 import copy
 from flask_caching import Cache
-from models import models
+from Model import models
+
 cache = Cache(app)
 
-#функция получения ближайшего свободного времени для резервирования столика
+
+# функция получения ближайшего свободного времени для резервирования столика
 def get_close_date():
     result_close = []
     var_result = {}
@@ -44,7 +46,8 @@ def get_close_date():
             result_close.append(value[0])
     return result_close
 
-#роут получения данных для отображения календаря резервированных дат
+
+# роут получения данных для отображения календаря резервированных дат
 @app.route('/', methods=["POST", "GET"])
 def select_date():
     # подключение к бд
@@ -63,7 +66,7 @@ def select_date():
         return render_template('main.html', data=data, settings=cache.get('booking_true'))
 
 
-#роут авторизации для получения данных о бронированных столиках
+# роут авторизации для получения данных о бронированных столиках
 @app.route('/login', methods=["POST", "GET"])
 def login():
     if request.method == "POST":
@@ -74,7 +77,8 @@ def login():
             return redirect(url_for('all_booking'))
     return render_template('login.html')
 
-#роут получения и отображения данных все бронирований
+
+# роут получения и отображения данных все бронирований
 @app.route('/all_booking', methods=["POST", "GET"])
 def all_booking():
     print('123')
@@ -83,7 +87,8 @@ def all_booking():
     else:
         return render_template('all_booking.html', all_booking=models.get_all_booking())
 
-#роут регистрации бронирования
+
+# роут регистрации бронирования
 @app.route('/booking/<date>', methods=["POST", "GET"])
 def booking(date):
     var_date = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])
@@ -93,10 +98,10 @@ def booking(date):
     for i in range(len(block_time)):
         if block_time[i][0] in setting:
             index = setting.index(block_time[i][0])
-        
+
     if request.method == "POST":
         try:
-            
+
             guest_id = models.insert_guest(request.form['fio'], request.form['number_phone'])
             place_id = models.get_place(request.form['system_kat'], request.form['dva'])
             desk_id = models.select_desk(request.form['desc_amount'], place_id)
