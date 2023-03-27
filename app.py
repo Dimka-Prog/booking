@@ -1,7 +1,12 @@
 from flask import Flask
 
+import Controller.CalendarController as calendar
+import Controller.AuthorizationController as authoriz
+import Controller.AdministrationController as admin
+import Controller.BookingCardController as card
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='View/Template')
+
 config = {
     "DEBUG": True,
     "CACHE_TYPE": "SimpleCache",
@@ -11,4 +16,29 @@ config = {
 app.config.from_mapping(config)
 
 
-import Controller.index
+# роут получения данных для отображения календаря резервированных дат
+@app.route('/', methods=["POST", "GET"])
+def select_date():
+    return calendar.select_date()
+
+
+# роут авторизации для пользователя и администратора
+@app.route('/login', methods=["POST", "GET"])
+def login():
+    return authoriz.login()
+
+
+# роут получения и отображения данных всех бронирований
+@app.route('/all_booking', methods=["POST", "GET"])
+def all_booking():
+    return admin.all_booking()
+
+
+# роут регистрации бронирования
+@app.route('/booking/<date>', methods=["POST", "GET"])
+def booking(date):
+    return card.booking(date)
+
+
+if __name__ == '__main__':
+    app.run(host='85.143.222.11')
