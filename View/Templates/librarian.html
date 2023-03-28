@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='bookingFormStyles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/bookingFormStyles.css') }}">
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <title>Электронный каталог</title>
@@ -12,7 +12,7 @@
 <body>
 
 
-<center>
+<div style="text-align: center;">
     <block1>
         <bl7>
             {% for message in get_flashed_messages() %}
@@ -74,7 +74,7 @@
                                     <select name="time" class="selectComponent">
                                         <option value="">Время</option>
                                         {% for i in time %}
-                                            <option value={{ i }}>{{ i }}</option>
+                                            <option value={{i}}>{{ i }}</option>
                                         {% endfor %}
                                     </select>
                                 </label>
@@ -90,6 +90,6 @@
             </div>
         </bl7>
     </block1>
-</center>
+</div>
 </body>
 </html>

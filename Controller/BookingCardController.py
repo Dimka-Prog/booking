@@ -1,12 +1,12 @@
 from flask import render_template, request, redirect
 
-import booking.Database.connectDB as db
+import Database.connectDB as db
 import Model.BookingModel as bookingModel
 import Model.TablesModel as tables
 import Model.UsersModel as users
 
 
-def booking(date):
+def booking(date, cache):
     connectDB = db.getConnection()
 
     var_date = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])

@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='static.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='allBooking.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/static.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/allBooking.css') }}">
 
     <title>Электронный каталог бронирований</title>
 </head>
@@ -17,7 +17,7 @@
 </style>
 <body>
 
-<center>
+<div style="text-align: center;">
     <block1>
         <form method="post">
             <div class="titleBlock">
@@ -47,7 +47,7 @@
         </form>
     <a href="/static" class="backHomeBooking">Домой</a>
     </block1>
-</center>
+</div>
 </body>
 
 </html>

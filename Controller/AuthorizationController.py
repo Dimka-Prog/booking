@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 
 
-def login():
+def login(cache):
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']

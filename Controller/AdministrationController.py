@@ -1,10 +1,10 @@
 from flask import render_template, redirect, url_for
 
 import Model.BookingModel as booking
-import booking.Database.connectDB as db
+import Database.connectDB as db
 
 
-def all_booking():
+def all_booking(cache):
     connectDB = db.getConnection()
 
     if cache.get('login') is None:

@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 
 import copy
-import booking.Database.connectDB as db
+import Database.connectDB as db
 import Model.BookingModel as booking
 
 
@@ -46,7 +46,7 @@ def get_close_date():
     return result_close
 
 
-def select_date():
+def select_date(cache):
     # подключение к бд
     temp_data = get_close_date()
     data = {'date': temp_data}

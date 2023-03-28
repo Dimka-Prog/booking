@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='static.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='option.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/static.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/option.css') }}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -40,7 +40,7 @@ $.datepicker.setDefaults($.datepicker.regional['ru']);
 </script>
 {% endif %}
 
-<center>
+<div style="text-align: center;">
 <block1>
     <bl1>
 <form  method="post">
@@ -71,7 +71,7 @@ $(function(){
 {% endfor %}
         </bl1>
 </block1>
-</center>
+</div>
 
 </body>
 </html>
