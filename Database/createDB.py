@@ -48,8 +48,8 @@ database.executescript('''
                         FOREIGN KEY (guest_id ) REFERENCES Guest (guest_id) ON DELETE CASCADE
                     );
                                         
-                    DROP TABLE IF EXISTS Numb;
-                    CREATE TABLE Numb (
+                    DROP TABLE IF EXISTS BookingHours;
+                    CREATE TABLE BookingHours (
                         numb_numb INT
                     );
                     
@@ -133,10 +133,10 @@ database.executescript('''
                     INSERT INTO Booking (desk_id, booking_date, schedule_id, booking_time) 
                     SELECT desk_id, schedule_date, schedule_id, strftime('%H:%M', time(schedule_time_begin, '+' || 
                            numb_numb || ' hour')) as time
-                    FROM Desk, Schedule, Numb
+                    FROM Desk, Schedule, BookingHours
                     WHERE schedule_date = '2022-10-1' and desk_numb = 1;
                     
-                    INSERT INTO Numb(numb_numb) VALUES 
+                    INSERT INTO BookingHours(numb_numb) VALUES 
                     (0),
                     (1),
                     (2),
