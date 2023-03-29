@@ -34,7 +34,7 @@ def insert_booking(connectDB, desc_id, quest_id, date, time, amount):
     cursor = connectDB.cursor()
     cursor.execute(f'''
                     INSERT INTO Booking (DESK_ID, GUEST_ID, schedule_id, BOOKING_DATE, BOOKING_TIME, BOOKING_AMOUNT) 
-                    VALUES ({desc_id}, {quest_id}, 1, {date}, {time}, {amount})
+                    VALUES ({desc_id}, {quest_id}, 1, '{date}', '{time}', {amount})
                     ''')
     connectDB.commit()
 
