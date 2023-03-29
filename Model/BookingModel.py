@@ -43,5 +43,5 @@ def get_block_time(connectDB, var_date):
     return pandas.read_sql(f'''
                             SELECT booking_time 
                             FROM Booking 
-                            WHERE booking_date = {var_date}
+                            WHERE booking_date = '{var_date}'
                             ''', connectDB)
