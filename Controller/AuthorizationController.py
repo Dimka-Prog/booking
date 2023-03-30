@@ -8,4 +8,5 @@ def login(cache):
         if username == 'admin' and password == 'admin':
             cache.set('login', 'True')
             return redirect(url_for('all_booking'))
-    return render_template('login.html')
+
+    return render_template('AuthorizationTemplate.html')

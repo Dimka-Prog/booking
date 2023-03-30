@@ -60,4 +60,4 @@ def select_date(cache):
             return redirect(url_for('all_booking'))
     else:
         cache.clear()
-        return render_template('main.html', data=data, settings=cache.get('booking_true'))
+        return render_template('CalendarTemplate.html', data=data, settings=cache.get('booking_true'))

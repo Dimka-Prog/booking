@@ -19,7 +19,7 @@ app.config.from_mapping(config)
 cache = Cache(app)
 
 
-# получения данных для отображения календаря резервированных дат
+# получение данных для отображения календаря резервированных дат
 @app.route('/', methods=["POST", "GET"])
 def select_date():
     return calendar.select_date(cache)

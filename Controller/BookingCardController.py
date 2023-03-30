@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, url_for
 
 import Database.connectDB as db
 import Model.BookingModel as bookingModel
@@ -18,19 +18,14 @@ def booking(date, cache):
             index = setting.index(block_time[i][0])
 
     if request.method == "POST":
-        try:
-
-            guest_id = users.insert_guest(connectDB, request.form['fio'], request.form['number_phone'])
-            place_id = tables.get_place(connectDB, request.form['system_kat'], request.form['dva'])
-            desk_id = tables.select_desk(connectDB, request.form['desc_amount'], place_id)
-            print(desk_id)
-            var_date = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])
-            time = request.form['time']
-            amount = request.form['desc_amount']
-            bookingModel.insert_booking(connectDB, desk_id, guest_id, var_date, time, amount)
-            cache.set('booking_true', 'True')
-            return redirect('/')
-        except TypeError:
-            print('Ошибка типа данных')
+        guest_id = users.insert_guest(connectDB, request.form['fio'], request.form['number_phone'])
+        place_id = tables.get_place(connectDB, request.form['system_kat'], request.form['dva'])
+        desk_id = tables.select_desk(connectDB, int(request.form['desc_amount']), place_id)
+        var_date = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])
+        time = request.form['time']
+        amount = int(request.form['desc_amount'])
+        bookingModel.insert_booking(connectDB, desk_id, guest_id, var_date, time, amount)
+        cache.set('booking_true', 'True')
+        return redirect(url_for('select_date'))
     else:
-        return render_template('librarian.html', time=setting)
+        return render_template('BookingCardTemplate.html', time=setting)

@@ -1,6 +1,3 @@
-import pandas
-
-
 def get_place(connectDB, place_floor, place_window):
     cursor = connectDB.cursor()
     place_id = cursor.execute(f'''

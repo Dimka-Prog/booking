@@ -10,4 +10,4 @@ def all_booking(cache):
     if cache.get('login') is None:
         return redirect(url_for('login'))
     else:
-        return render_template('all_booking.html', all_booking=booking.get_all_booking(connectDB))
+        return render_template('AdministrationTemplate.html', all_booking=booking.get_all_booking(connectDB))
