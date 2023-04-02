@@ -1,5 +1,10 @@
-def insert_guest(connectDB, fio, number_phone):
+import Database.connectDB as db
+
+
+def insert_guest(fio, number_phone):
+    connectDB = db.getConnection()
     cursor = connectDB.cursor()
+
     cursor.execute(f'''
                     INSERT INTO Guest (guest_name, guest_phone) 
                     VALUES ('{fio}', '{number_phone}')
@@ -11,4 +16,5 @@ def insert_guest(connectDB, fio, number_phone):
                                 FROM Guest 
                                 WHERE GUEST_NAME = '{fio}' AND GUEST_PHONE = '{number_phone}'
                                 ''').fetchone()
+    connectDB.close()
     return guest_id[0]

@@ -1,20 +1,17 @@
 from flask import render_template, request, redirect, url_for
 
 import copy
-import Database.connectDB as db
 import Model.BookingModel as booking
 
 
 # функция получения ближайшего свободного времени для резервирования столика
 def get_close_date():
-    connectDB = db.getConnection()
-
     result_close = []
     var_result = {}
-    date = booking.get_date_time_booking(connectDB)
+    date = booking.get_date_time_booking()
     for d in date:
         temp_data = d[0]
-        temp_time = d[1][:2]
+        # temp_time = d[1][:2]
         data_temp = []
         for j in date:
             if j[0] == temp_data:
