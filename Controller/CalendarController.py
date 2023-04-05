@@ -50,8 +50,7 @@ def select_date(cache):
     # обработчик нажатия на кнопку
     if request.method == "POST":
         if 'entrance' in request.form:
-            date = request.form['val']
-            date = date.replace('.', '')
+            date = request.form['val'].replace('.', '')
             return redirect(url_for('booking', date=date))
         elif 'all_booking' in request.form:
             return redirect(url_for('all_booking'))
