@@ -1,48 +1,48 @@
 import Database.connectDB as db
 
 
-def get_place(place_floor, place_window):
+def getTableLocation(floor, placeWindow):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
-    place_id = cursor.execute(f'''
+    placeID = cursor.execute(f'''
                                 SELECT PlaceID 
                                 FROM Places 
-                                WHERE Floor = {place_floor} AND PlaceWindow = '{place_window}'
+                                WHERE Floor = {floor} AND PlaceWindow = '{placeWindow}'
                                 ''').fetchone()
     connectDB.close()
-    return place_id[0]
+    return placeID[0]
 
 
-def getDeskAmount():
+def getCountPlaces():
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
-    deskAmount = cursor.execute('''
+    countPlaces = cursor.execute('''
                             SELECT CountPlaces
                             FROM Tables
                             GROUP BY CountPlaces
                            ''').fetchall()
     connectDB.close()
-    return deskAmount
+    return countPlaces
 
 
-def select_desk(desk_amount, place_id):
+def getFreeTable(countPlaces, placeID):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
-    desc_id = cursor.execute(f'''
+    tableID = cursor.execute(f'''
                                 SELECT TableID
                                 FROM Booking 
-                                WHERE TableID = {desk_amount}
+                                WHERE TableID = {countPlaces}
                                ''').fetchone()
 
-    if desc_id is None:
-        desc_id = cursor.execute(f'''
+    if tableID is None:
+        tableID = cursor.execute(f'''
                                     SELECT TableID 
                                     FROM Tables 
-                                    WHERE CountPlaces = {desk_amount} AND PlaceID = {place_id}
+                                    WHERE CountPlaces = {countPlaces} AND PlaceID = {placeID}
                                    ''').fetchone()
 
     connectDB.close()
-    return desc_id[0]
+    return tableID[0]

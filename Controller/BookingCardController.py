@@ -6,20 +6,26 @@ import Model.UsersModel as users
 
 
 def booking(date, cache):
-    setting = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
+    allTime = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
                '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
 
     if request.method == "POST":
-        guest_id = users.insert_guest(request.form['fio'], request.form['number_phone'])
-        place_id = tables.get_place(int(request.form['system_kat']), request.form['dva'])
-        desk_id = tables.select_desk(int(request.form['desc_amount']), place_id)
+        users.addGuest(request.form['fio'], request.form['phoneNumber'])
+        guestID = users.getGuest(request.form['fio'], request.form['phoneNumber'])
+        placeID = tables.getTableLocation(int(request.form['floor']), request.form['window'])
+        tableID = tables.getFreeTable(int(request.form['countPlaces']), placeID)
 
-        var_date = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])
-        time = request.form['time']
-        amount = int(request.form['desc_amount'])
+        bookingDate = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])
+        bookingTime = request.form['bookingTime']
+        countPlaces = int(request.form['countPlaces'])
 
-        bookingModel.insert_booking(desk_id, guest_id, var_date, time, amount)
+        bookingModel.addBooking(tableID, guestID, bookingDate, bookingTime, countPlaces)
         cache.set('booking_true', 'True')
         return redirect(url_for('select_date'))
     else:
-        return render_template('BookingCardTemplate.html', time=setting, deskAmount=tables.getDeskAmount(), len=len)
+        return render_template(
+            'BookingCardTemplate.html',
+            allTime=allTime,
+            countPlaces=tables.getCountPlaces(),
+            len=len
+        )

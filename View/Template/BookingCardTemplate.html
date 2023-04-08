@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/bookingFormStyles.css') }}">
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
-    <title>Электронный каталог</title>
+    <title>Карточка бронирования</title>
 </head>
 <style>
 </style>
@@ -36,7 +36,7 @@
                                 </label>
                                 <label class="labelText">
                                     Ваш номер телефона
-                                    <input type="text" class="formInput phone" name="number_phone"
+                                    <input type="text" class="formInput phone" name="phoneNumber"
                                            placeholder="Номер телефона" maxlength="12" required>
                                 </label>
                                 <script>
@@ -50,11 +50,11 @@
                                     </label>
                                     <div class="radioButtons">
                                         <label for="first_floor"> Этаж 1 </label>
-                                        <input type="radio" id="first_floor" name="system_kat" value="1" checked>
+                                        <input type="radio" id="first_floor" name="floor" value="1" checked>
                                     </div>
                                     <div class="radioButtons">
                                         <label for="second_floor"> Этаж 2 </label>
-                                        <input type="radio" id="second_floor" name="system_kat" value="2">
+                                        <input type="radio" id="second_floor" name="floor" value="2">
                                     </div>
                                 </div>
 
@@ -64,41 +64,41 @@
                                     </label>
                                     <div class="radioButtons">
                                         <label for="window_yes"> У окна </label>
-                                        <input type="radio" id="window_yes" name="dva" value="yes" checked>
+                                        <input type="radio" id="window_yes" name="window" value="yes" checked>
                                     </div>
                                     <div class="radioButtons">
                                         <label for="window_no"> Не у окна </label>
-                                        <input type="radio" id="window_no" name="dva" value="no">
+                                        <input type="radio" id="window_no" name="window" value="no">
                                     </div>
                                 </div>
                             </div>
                             <div class="btnBlock">
                                 <label class="labelText">
                                     Время бронирования
-                                    <select class="selectComponent" name="time">
-                                        {% for i in range(len(time)) %}
+                                    <select class="selectComponent" name="bookingTime">
+                                        {% for i in range(len(allTime)) %}
                                             {% if i == 0 %}
-                                                <option value={{time[i]}} selected>{{ time[i] }}</option>
+                                                <option value={{allTime[i]}} selected>{{ allTime[i] }}</option>
                                             {% else %}
-                                                <option value={{time[i]}}>{{ time[i] }}</option>
+                                                <option value={{allTime[i]}}>{{ allTime[i] }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
                                 </label>
                                 <label class="labelText">
                                     Количество мест за столиком
-                                    <select class="selectComponent" name="desc_amount">
-                                        {% for i in range(len(deskAmount)) %}
+                                    <select class="selectComponent" name="countPlaces">
+                                        {% for i in range(len(countPlaces)) %}
                                             {% if i == 0 %}
-                                                <option value={{deskAmount[i][0]}} selected>{{ deskAmount[i][0] }}</option>
+                                                <option value={{countPlaces[i][0]}} selected>{{ countPlaces[i][0] }}</option>
                                             {% else %}
-                                                <option value={{deskAmount[i][0]}}>{{ deskAmount[i][0] }}</option>
+                                                <option value={{countPlaces[i][0]}}>{{ countPlaces[i][0] }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
                                 </label>
                             </div>
-                            <input type="submit" name="Create" class="submitButton" value="Забронировать"/>
+                            <input type="submit" name="createBooking" class="submitButton" value="Забронировать"/>
                         </div>
                     </form>
                 </div>

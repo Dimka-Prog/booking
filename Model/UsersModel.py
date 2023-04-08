@@ -1,20 +1,25 @@
 import Database.connectDB as db
 
 
-def insert_guest(fio, number_phone):
+def addGuest(fio, phoneNumber):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
     cursor.execute(f'''
                     INSERT INTO Guests (FIO, PhoneNumber) 
-                    VALUES ('{fio}', '{number_phone}')
+                    VALUES ('{fio}', '{phoneNumber}')
                     ''')
     connectDB.commit()
 
-    guest_id = cursor.execute(f'''
-                                SELECT GuestID 
-                                FROM Guests 
-                                WHERE FIO = '{fio}' AND PhoneNumber = '{number_phone}'
-                                ''').fetchone()
+
+def getGuest(fio, phoneNumber):
+    connectDB = db.getConnection()
+    cursor = connectDB.cursor()
+
+    guestID = cursor.execute(f'''
+                              SELECT GuestID 
+                              FROM Guests 
+                              WHERE FIO = '{fio}' AND PhoneNumber = '{phoneNumber}'
+                             ''').fetchone()
     connectDB.close()
-    return guest_id[0]
+    return guestID[0]
