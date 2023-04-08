@@ -22,20 +22,20 @@
             <div class="container">
                 <div class="wrapper">
                     <a href="{{url_for('select_date')}}" class="backHome">Домой</a>
-                    <form method="post" class="formBlock">
+                    <form class="formBlock" method="post">
                         <div class="titleBlock">
                             <h1 class="cardTitle">Карточка бронирования</h1>
                         </div>
                         <div class="contentBlock">
                             <div class="inputsBlock">
                                 <label class="labelText">
-                                    Введите ваше имя
-                                    <input type="text" name="fio" class="formInput" placeholder="Фамилия И. О."
+                                    Ваше ФИО
+                                    <input type="text" class="formInput" name="fio" placeholder="Фамилия И. О."
                                            maxlength="20"
                                            required/>
                                 </label>
                                 <label class="labelText">
-                                    Введите ваш номер телефона
+                                    Ваш номер телефона
                                     <input type="text" class="formInput phone" name="number_phone"
                                            placeholder="Номер телефона" maxlength="12" required>
                                 </label>
@@ -46,41 +46,56 @@
                             <div class="labelsBlockLayout">
                                 <div class="checkTable">
                                     <label class="labelText">
-                                        Выберете этаж для заказа
-                                        <select name="system_kat" class="__select selectComponent">
-                                            <option value="1" >Этаж 1</option>
-                                            <option value="2">Этаж 2</option>
-                                        </select>
+                                        Этаж столика
                                     </label>
+                                    <div class="radioButtons">
+                                        <label for="first_floor"> Этаж 1 </label>
+                                        <input type="radio" id="first_floor" name="system_kat" value="1" checked>
+                                    </div>
+                                    <div class="radioButtons">
+                                        <label for="second_floor"> Этаж 2 </label>
+                                        <input type="radio" id="second_floor" name="system_kat" value="2">
+                                    </div>
                                 </div>
 
                                 <div class="checkTable">
                                     <label class="labelText">
-                                        Выберете расположение столика
+                                        Расположение столика
                                     </label>
                                     <div class="radioButtons">
                                         <label for="window_yes"> У окна </label>
-                                        <input name="dva" type="radio" id="window_yes" value="yes" checked>
+                                        <input type="radio" id="window_yes" name="dva" value="yes" checked>
                                     </div>
                                     <div class="radioButtons">
                                         <label for="window_no"> Не у окна </label>
-                                        <input name="dva" type="radio" id="window_no" value="no">
+                                        <input type="radio" id="window_no" name="dva" value="no">
                                     </div>
                                 </div>
                             </div>
                             <div class="btnBlock">
                                 <label class="labelText">
-                                    Выберете время
-                                    <select name="time" class="selectComponent">
-                                        <option value="">Время</option>
-                                        {% for i in time %}
-                                            <option value={{i}}>{{ i }}</option>
+                                    Время бронирования
+                                    <select class="selectComponent" name="time">
+                                        {% for i in range(len(time)) %}
+                                            {% if i == 0 %}
+                                                <option value={{time[i]}} selected>{{ time[i] }}</option>
+                                            {% else %}
+                                                <option value={{time[i]}}>{{ time[i] }}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                 </label>
                                 <label class="labelText">
-                                    Введите количество человек
-                                    <input type="text" name="desc_amount" class="formInput" placeholder="Кол-во человек" required/>
+                                    Количество мест за столиком
+                                    <select class="selectComponent" name="desc_amount">
+                                        {% for i in range(len(deskAmount)) %}
+                                            {% if i == 0 %}
+                                                <option value={{deskAmount[i][0]}} selected>{{ deskAmount[i][0] }}</option>
+                                            {% else %}
+                                                <option value={{deskAmount[i][0]}}>{{ deskAmount[i][0] }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </label>
                             </div>
                             <input type="submit" name="Create" class="submitButton" value="Забронировать"/>

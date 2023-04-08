@@ -6,15 +6,15 @@ def insert_guest(fio, number_phone):
     cursor = connectDB.cursor()
 
     cursor.execute(f'''
-                    INSERT INTO Guest (guest_name, guest_phone) 
+                    INSERT INTO Guests (FIO, PhoneNumber) 
                     VALUES ('{fio}', '{number_phone}')
                     ''')
     connectDB.commit()
 
     guest_id = cursor.execute(f'''
-                                SELECT GUEST_ID 
-                                FROM Guest 
-                                WHERE GUEST_NAME = '{fio}' AND GUEST_PHONE = '{number_phone}'
+                                SELECT GuestID 
+                                FROM Guests 
+                                WHERE FIO = '{fio}' AND PhoneNumber = '{number_phone}'
                                 ''').fetchone()
     connectDB.close()
     return guest_id[0]

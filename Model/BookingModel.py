@@ -16,8 +16,8 @@ def get_date_time_booking():
 
     date = cursor.execute('''
                             SELECT 
-                                booking_date, 
-                                booking_time 
+                                BookingDate, 
+                                BookingTime 
                             FROM Booking
                            ''').fetchall()
     connectDB.close()
@@ -30,14 +30,14 @@ def get_all_booking():
 
     all_booking = cursor.execute('''
                             SELECT 
-                                BOOKING_DATE, 
-                                BOOKING_TIME, 
-                                G.GUEST_NAME, 
-                                D.DESK_AMOUNT, 
-                                D.DESK_NUMB 
+                                BookingDate, 
+                                BookingTime, 
+                                G.FIO, 
+                                D.CountPlaces, 
+                                D.TableNumber 
                             FROM Booking B 
-                                JOIN Guest G ON B.GUEST_ID = G.GUEST_ID 
-                                JOIN Desk D ON B.DESK_ID = D.DESK_ID
+                                JOIN Guests G ON B.GuestID = G.GuestID 
+                                JOIN Tables D ON B.TableID = D.TableID
                            ''').fetchall()
     connectDB.close()
     return all_booking
@@ -48,7 +48,7 @@ def insert_booking(desc_id, quest_id, date, time, amount):
     cursor = connectDB.cursor()
 
     cursor.execute(f'''
-                    INSERT INTO Booking (DESK_ID, GUEST_ID, schedule_id, BOOKING_DATE, BOOKING_TIME, BOOKING_AMOUNT) 
+                    INSERT INTO Booking (TableID, GuestID, ScheduleID, BookingDate, BookingTime, CountPlaces) 
                     VALUES ({desc_id}, {quest_id}, 1, '{date}', '{time}', {amount})
                     ''')
     connectDB.commit()
@@ -60,9 +60,9 @@ def get_block_time(var_date):
     cursor = connectDB.cursor()
 
     data = cursor.execute(f'''
-                            SELECT booking_time 
+                            SELECT BookingTime 
                             FROM Booking 
-                            WHERE booking_date = '{var_date}'
+                            WHERE BookingDate = '{var_date}'
                             ''').fetchall()
     connectDB.close()
     return data

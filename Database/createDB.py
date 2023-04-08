@@ -3,64 +3,64 @@ import sqlite3
 database = sqlite3.connect("booking.db.sqlite")
 
 database.executescript('''
-                    DROP TABLE IF EXISTS Place;
-                    CREATE TABLE Place (
-                        place_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        place_floor INT,
-                        place_window VARCHAR (20)
+                    DROP TABLE IF EXISTS Places;
+                    CREATE TABLE Places (
+                        PlaceID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Floor,
+                        PlaceWindow VARCHAR (20)
                     );
                     
-                    DROP TABLE IF EXISTS Guest;
-                    CREATE TABLE Guest (
-                        guest_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        guest_name VARCHAR (20),
-                        guest_phone VARCHAR (20)
+                    DROP TABLE IF EXISTS Guests;
+                    CREATE TABLE Guests (
+                        GuestID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        FIO VARCHAR (50),
+                        PhoneNumber VARCHAR (20)
                     );
                     
-                    DROP TABLE IF EXISTS Desk;
-                    CREATE TABLE Desk (
-                        desk_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        desk_numb INT,
-                        desk_amount INT,
-                        place_id INT,
-                        FOREIGN KEY (place_id) REFERENCES Place (place_id) ON DELETE CASCADE
+                    DROP TABLE IF EXISTS Tables;
+                    CREATE TABLE Tables (
+                        TableID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        TableNumber INT,
+                        CountPlaces INT,
+                        PlaceID INT,
+                        FOREIGN KEY (PlaceID) REFERENCES Places (PlaceID) ON DELETE CASCADE
                     );
                     
-                    DROP TABLE IF EXISTS Schedule;
-                    CREATE TABLE Schedule(
-                        schedule_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        schedule_time_begin DATETIME,
-                        schedule_time_end DATETIME,
-                        schedule_date DATE
+                    DROP TABLE IF EXISTS WorkSchedule;
+                    CREATE TABLE WorkSchedule(
+                        ScheduleID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        TimeBegin DATETIME,
+                        TimeEnd DATETIME,
+                        WorkDate DATE
                     );
                     
                     DROP TABLE IF EXISTS Booking;
                     CREATE TABLE Booking (
-                        booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        desk_id INT,
-                        guest_id INT,
-                        schedule_id INT,
-                        booking_date DATETIME,
-                        booking_time VARCHAR (10),
-                        booking_amount INT, 
-                        FOREIGN KEY (desk_id) REFERENCES Desk (desk_id) ON DELETE CASCADE,
-                        FOREIGN KEY (schedule_id) REFERENCES Schedule (schedule_id) ON DELETE CASCADE, 
-                        FOREIGN KEY (guest_id ) REFERENCES Guest (guest_id) ON DELETE CASCADE
+                        BookingID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        TableID INT,
+                        GuestID INT,
+                        ScheduleID INT,
+                        BookingDate DATETIME,
+                        BookingTime VARCHAR (10),
+                        CountPlaces INT, 
+                        FOREIGN KEY (TableID) REFERENCES Tables (TableID) ON DELETE CASCADE,
+                        FOREIGN KEY (ScheduleID) REFERENCES WorkSchedule (ScheduleID) ON DELETE CASCADE, 
+                        FOREIGN KEY (GuestID) REFERENCES Guests (GuestID) ON DELETE CASCADE
                     );
                                         
                     DROP TABLE IF EXISTS BookingHours;
                     CREATE TABLE BookingHours (
-                        numb_numb INT
+                        HourNumber INT
                     );
                     
                     
-                    INSERT INTO Place (place_floor, place_window)  VALUES 
+                    INSERT INTO Places (Floor, PlaceWindow)  VALUES 
                     (1, 'yes'),
                     (1, 'no'),
                     (2, 'yes'),
                     (2, 'no');
                     
-                    INSERT INTO Guest (guest_name, guest_phone) VALUES
+                    INSERT INTO Guests (FIO, PhoneNumber) VALUES
                     ('Попов А.А.', '89147594501'),
                     ('Сидоров А.А.', '89147594502'),
                     ('Агапова А.А.', '89147594503'),
@@ -92,52 +92,51 @@ database.executescript('''
                     ('Казанцев А.А.', '89147594529'),
                     ('Емельянов А.А.', '89147594530');
                     
-                    INSERT INTO Desk (desk_numb, desk_amount, place_id)  VALUES 
-                    (1, 2, 1),
-                    (2, 2, 2),
-                    (3, 2, 2),
-                    (4, 2, 4),
-                    (5, 2, 3),
-                    (6, 3, 1),
-                    (7, 3, 2),
-                    (8, 3, 3),
-                    (9, 3, 4),
-                    (10, 3, 1),
-                    (11, 4, 4),
-                    (12, 4, 4),
-                    (13, 4, 1),
-                    (14, 4, 3),
-                    (15, 4, 2),
-                    (16, 6, 1),
-                    (17, 6, 2),
-                    (18, 6, 4),
-                    (19, 6, 3),
-                    (20, 6, 2),
-                    (21, 8, 1),
-                    (22, 8, 4),
-                    (23, 8, 2),
-                    (24, 8, 3),
-                    (25, 1, 1),
-                    (26, 1, 3),
-                    (27, 1, 2),
-                    (28, 1, 4),
-                    (29, 1, 1),
-                    (30, 1, 4);
+                    INSERT INTO Tables (TableNumber, CountPlaces, PlaceID)  VALUES
+                    (1, 1, 1),
+                    (2, 1, 3),
+                    (3, 1, 2),
+                    (4, 1, 4),
+                    (5, 1, 1),
+                    (6, 1, 4), 
+                    (7, 2, 1),
+                    (8, 2, 2),
+                    (9, 2, 2),
+                    (10, 2, 4),
+                    (11, 2, 3),
+                    (12, 3, 1),
+                    (13, 3, 2),
+                    (14, 3, 3),
+                    (15, 3, 4),
+                    (16, 3, 1),
+                    (17, 4, 4),
+                    (18, 4, 4),
+                    (19, 4, 1),
+                    (20, 4, 3),
+                    (21, 4, 2),
+                    (22, 6, 1),
+                    (23, 6, 2),
+                    (24, 6, 4),
+                    (25, 6, 3),
+                    (26, 6, 2),
+                    (27, 8, 1),
+                    (28, 8, 4),
+                    (29, 8, 2),
+                    (30, 8, 3);
                     
-                    INSERT INTO Schedule (schedule_date, schedule_time_begin, schedule_time_end) VALUES
+                    INSERT INTO WorkSchedule (WorkDate, TimeBegin, TimeEnd) VALUES
                     ('2022-10-1', '12:00', '24:00'),
                     ('2022-10-2', '10:00', '23:00'),
                     ('2022-10-3', '10:00', '23:00'),
                     ('2022-10-4', '10:00', '23:00');
                     
-                    INSERT INTO Booking (desk_id, booking_date, schedule_id, booking_time) 
-                    SELECT desk_id, schedule_date, schedule_id, strftime('%H:%M', time(schedule_time_begin, '+' || 
-                           numb_numb || ' hour')) as time
-                    FROM Desk, Schedule, BookingHours
-                    WHERE schedule_date = '2022-10-1' and desk_numb = 1;
+                    INSERT INTO Booking (TableID, BookingDate, ScheduleID, BookingTime) 
+                    SELECT TableID, WorkDate, ScheduleID, strftime('%H:%M', time(TimeBegin, '+' || 
+                           HourNumber || ' hour')) as time
+                    FROM Tables, WorkSchedule, BookingHours
+                    WHERE WorkDate = '2022-10-1' and TableNumber = 1;
                     
-                    INSERT INTO BookingHours(numb_numb) VALUES 
-                    (0),
+                    INSERT INTO BookingHours(HourNumber) VALUES 
                     (1),
                     (2),
                     (3),
@@ -148,7 +147,8 @@ database.executescript('''
                     (8),
                     (9),
                     (10),
-                    (11); 
+                    (11),
+                    (12); 
                        ''')
 
 database.commit()

@@ -6,13 +6,8 @@ import Model.UsersModel as users
 
 
 def booking(date, cache):
-    # var_date = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])
     setting = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
                '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-    # block_time = bookingModel.get_block_time(var_date)
-    # for i in range(len(block_time)):
-    #     if block_time[i][0] in setting:
-    #         index = setting.index(block_time[i][0])
 
     if request.method == "POST":
         guest_id = users.insert_guest(request.form['fio'], request.form['number_phone'])
@@ -27,4 +22,4 @@ def booking(date, cache):
         cache.set('booking_true', 'True')
         return redirect(url_for('select_date'))
     else:
-        return render_template('BookingCardTemplate.html', time=setting)
+        return render_template('BookingCardTemplate.html', time=setting, deskAmount=tables.getDeskAmount(), len=len)

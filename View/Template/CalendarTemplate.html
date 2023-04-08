@@ -8,31 +8,32 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script>
-/* Локализация datepicker */
-$.datepicker.regional['ru'] = {
-	closeText: 'Закрыть',
-	prevText: 'Предыдущий',
-	nextText: 'Следующий',
-	currentText: 'Сегодня',
-	monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-	monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
-	dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
-	dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
-	dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
-	weekHeader: 'Не',
-	dateFormat: 'dd.mm.yy',
-	firstDay: 1,
-	isRTL: false,
-	showMonthAfterYear: false,
-	yearSuffix: ''
-};
-$.datepicker.setDefaults($.datepicker.regional['ru']);
-</script>
+    <script>
+    /* Локализация datepicker */
+    $.datepicker.regional['ru'] = {
+        closeText: 'Закрыть',
+        prevText: 'Предыдущий',
+        nextText: 'Следующий',
+        currentText: 'Сегодня',
+        monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+        dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+        weekHeader: 'Не',
+        dateFormat: 'dd.mm.yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+    </script>
+
     <title>Календарь</title>
 </head>
-<body>
 
+<body>
 {% if settings == 'True' %}
 <script>
     alert('Ваша бронь создана. С вами свяжется администратор.')
@@ -45,24 +46,25 @@ $.datepicker.setDefaults($.datepicker.regional['ru']);
             <form  method="post">
                 <h1>Календарь</h1>
                 <div id="datepicker"></div>
-                <input type="hidden" id="datepicker_value" name ='val' value="18.01.2023">
-                <p><input type="submit" value="Выбрать" name = 'entrance'/></p>
-                <p><input type="submit" value="Показать все бронирования" name = 'all_booking'/></p>
-            <script>
-            var dates = {{ data.date|tojson }}
-            $(function(){
-                $("#datepicker").datepicker({
-                    minDate: 0,
-                    onSelect: function(date){
-                        $('#datepicker_value').val(date)
-                    },
-                    beforeShowDay: function(date){
-                        var string = jQuery.datepicker.formatDate('yy-mm-dd', date)
-                        return [dates.indexOf(string) == -1]
-                    }
+                <input type="hidden" id="datepicker_value" name='val' value="18.01.2023">
+                <p><input type="submit" name='entrance' value="Выбрать"/></p>
+                <p><input type="submit" name='all_booking' value="Показать все бронирования"/></p>
+
+                <script>
+                let dates = {{ data.date|tojson }}
+                $(function(){
+                    $("#datepicker").datepicker({
+                        minDate: 0,
+                        onSelect: function(date){
+                            $('#datepicker_value').val(date)
+                        },
+                        beforeShowDay: function(date){
+                            let string = jQuery.datepicker.formatDate('yy-mm-dd', date)
+                            return [dates.indexOf(string) == -1]
+                        }
+                    });
                 });
-            });
-            </script>
+                </script>
             </form>
 
             {% for message in get_flashed_messages() %}
