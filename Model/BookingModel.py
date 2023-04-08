@@ -43,26 +43,26 @@ def get_all_booking():
     return all_booking
 
 
-def insert_booking(desc_id, quest_id, date, time, amount):
+def addBooking(tableID, questID, bookingDate, bookingTime, countPlaces):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
     cursor.execute(f'''
                     INSERT INTO Booking (TableID, GuestID, ScheduleID, BookingDate, BookingTime, CountPlaces) 
-                    VALUES ({desc_id}, {quest_id}, 1, '{date}', '{time}', {amount})
+                    VALUES ({tableID}, {questID}, 1, '{bookingDate}', '{bookingTime}', {countPlaces})
                     ''')
     connectDB.commit()
     connectDB.close()
 
 
-def get_block_time(var_date):
+def get_block_time(bookingDate):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
     data = cursor.execute(f'''
                             SELECT BookingTime 
                             FROM Booking 
-                            WHERE BookingDate = '{var_date}'
+                            WHERE BookingDate = '{bookingDate}'
                             ''').fetchall()
     connectDB.close()
     return data
