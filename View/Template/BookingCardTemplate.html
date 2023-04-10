@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/bookingFormStyles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BookingCard.css') }}">
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <title>Карточка бронирования</title>
 </head>
-<style>
-</style>
+
 <body>
-
-
 <div style="text-align: center;">
     <block1>
         <bl7>
@@ -21,7 +18,7 @@
 
             <div class="container">
                 <div class="wrapper">
-                    <a href="{{url_for('select_date')}}" class="backHome">Домой</a>
+                    <a href="{{url_for('selectDate')}}" class="backHome">Домой</a>
                     <form class="formBlock" method="post">
                         <div class="titleBlock">
                             <h1 class="cardTitle">Карточка бронирования</h1>
@@ -76,7 +73,7 @@
                                 <label class="labelText">
                                     Время бронирования
                                     <select class="selectComponent" name="bookingTime">
-                                        {% for i in range(len(allTime)) %}
+                                        {% for i in range(allTime|length) %}
                                             {% if i == 0 %}
                                                 <option value={{allTime[i]}} selected>{{ allTime[i] }}</option>
                                             {% else %}
@@ -88,7 +85,7 @@
                                 <label class="labelText">
                                     Количество мест за столиком
                                     <select class="selectComponent" name="countPlaces">
-                                        {% for i in range(len(countPlaces)) %}
+                                        {% for i in range(countPlaces|length) %}
                                             {% if i == 0 %}
                                                 <option value={{countPlaces[i][0]}} selected>{{ countPlaces[i][0] }}</option>
                                             {% else %}

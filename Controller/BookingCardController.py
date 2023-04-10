@@ -21,11 +21,10 @@ def booking(date, cache):
 
         bookingModel.addBooking(tableID, guestID, bookingDate, bookingTime, countPlaces)
         cache.set('booking_true', 'True')
-        return redirect(url_for('select_date'))
+        return redirect(url_for('selectDate'))
     else:
         return render_template(
             'BookingCardTemplate.html',
             allTime=allTime,
-            countPlaces=tables.getCountPlaces(),
-            len=len
+            countPlaces=tables.getCountPlaces()
         )

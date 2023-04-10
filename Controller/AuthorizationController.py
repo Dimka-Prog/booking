@@ -3,10 +3,10 @@ from flask import render_template, request, redirect, url_for
 
 def login(cache):
     if request.method == "POST":
-        username = request.form['username']
+        login = request.form['login']
         password = request.form['password']
-        if username == 'admin' and password == 'admin':
+        if login == 'admin' and password == 'admin':
             cache.set('login', 'True')
-            return redirect(url_for('all_booking'))
+            return redirect(url_for('allBooking'))
 
     return render_template('AuthorizationTemplate.html')

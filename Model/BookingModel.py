@@ -10,7 +10,7 @@ def delete():
     connectDB.close()
 
 
-def get_date_time_booking():
+def getDateTime():
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
@@ -24,11 +24,11 @@ def get_date_time_booking():
     return date
 
 
-def get_all_booking():
+def getAllBooking():
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
-    all_booking = cursor.execute('''
+    allBooking = cursor.execute('''
                             SELECT 
                                 BookingDate, 
                                 BookingTime, 
@@ -38,9 +38,10 @@ def get_all_booking():
                             FROM Booking B 
                                 JOIN Guests G ON B.GuestID = G.GuestID 
                                 JOIN Tables D ON B.TableID = D.TableID
+                            ORDER BY BookingDate
                            ''').fetchall()
     connectDB.close()
-    return all_booking
+    return allBooking
 
 
 def addBooking(tableID, questID, bookingDate, bookingTime, countPlaces):
@@ -55,14 +56,14 @@ def addBooking(tableID, questID, bookingDate, bookingTime, countPlaces):
     connectDB.close()
 
 
-def get_block_time(bookingDate):
+def getTime(bookingDate):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
-    data = cursor.execute(f'''
+    time = cursor.execute(f'''
                             SELECT BookingTime 
                             FROM Booking 
                             WHERE BookingDate = '{bookingDate}'
                             ''').fetchall()
     connectDB.close()
-    return data
+    return time

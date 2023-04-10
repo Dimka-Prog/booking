@@ -5,10 +5,10 @@ import Model.BookingModel as booking
 
 
 # функция получения ближайшего свободного времени для резервирования столика
-def get_close_date():
+def getFreeDate():
     result_close = []
     var_result = {}
-    date = booking.get_date_time_booking()
+    date = booking.getDateTime()
     for d in date:
         temp_data = d[0]
         # temp_time = d[1][:2]
@@ -18,11 +18,11 @@ def get_close_date():
                 data_temp.append(j[1])
         var_result[temp_data] = data_temp
 
-    setting = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
+    allTime = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
                '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
 
     for value in var_result.items():
-        var_sett = copy.copy(setting)
+        var_sett = copy.copy(allTime)
         for i in range(len(value[1])):
             if value[1][i] in var_sett:
                 index = var_sett.index(value[1][i])
@@ -44,17 +44,16 @@ def get_close_date():
     return result_close
 
 
-def select_date(cache):
-    # подключение к бд
-    temp_data = get_close_date()
+def selectDate(cache):
+    temp_data = getFreeDate()
     data = {'date': temp_data}
-    # обработчик нажатия на кнопку
+
     if request.method == "POST":
-        if 'entrance' in request.form:
-            date = request.form['val'].replace('.', '')
+        if 'selectDateButton' in request.form:
+            date = request.form['date'].replace('.', '')
             return redirect(url_for('booking', date=date))
-        elif 'all_booking' in request.form:
-            return redirect(url_for('all_booking'))
+        elif 'allBookingButton' in request.form:
+            return redirect(url_for('allBooking'))
     else:
         cache.clear()
         return render_template('CalendarTemplate.html', data=data, settings=cache.get('booking_true'))

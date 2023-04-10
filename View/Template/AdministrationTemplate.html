@@ -2,26 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/static.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/table.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/allBooking.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/AdministrationTable.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Administration.css') }}">
 
     <title>Бронирования</title>
 </head>
-<style>
-    .container {
-        width: 530px;
-        overflow-y: auto;
-        max-height: 300px;
-    }
-</style>
-<body>
 
+<body>
 <div style="text-align: center;">
     <block1>
-        <form method="post">
+        <form method="POST">
             <div class="titleBlock">
-                <h1 class="cardTitle">Бронирования</h1>
+                <h1 class="cardTitle">БРОНИРОВАНИЯ</h1>
             </div>
             <br>
             <div class="container">
@@ -33,21 +25,18 @@
                         <th>Кол-во чел.</th>
                         <th>Номер стола</th>
                     </tr>
-                    {% for i in range(all_booking|length) %}
+                    {% for row in range(allBooking|length) %}
                         <tr>
-                            <td>{{ all_booking[i][0] }}</td>
-                            <td>{{ all_booking[i][1] }}</td>
-                            <td>{{ all_booking[i][2] }}</td>
-                            <td>{{ all_booking[i][3] }}</td>
-                            <td>{{ all_booking[i][4] }}</td>
+                            {% for col in range(allBooking[row]|length) %}
+                                <td>{{ allBooking[row][col] }}</td>
+                            {% endfor %}
                         </tr>
                     {% endfor %}
                 </table>
             </div>
         </form>
-    <a href="{{url_for('select_date')}}" class="backHomeBooking">Домой</a>
+        <a class="backHomeBooking" href="{{url_for('selectDate')}}"> Домой </a>
     </block1>
 </div>
 </body>
-
 </html>

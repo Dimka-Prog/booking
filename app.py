@@ -21,8 +21,8 @@ cache = Cache(app)
 
 # получение данных для отображения календаря резервированных дат
 @app.route('/', methods=["POST", "GET"])
-def select_date():
-    return calendar.select_date(cache)
+def selectDate():
+    return calendar.selectDate(cache)
 
 
 # авторизация для пользователя и администратора
@@ -33,8 +33,8 @@ def login():
 
 # получение и отображения данных всех бронирований
 @app.route('/all_booking', methods=["POST", "GET"])
-def all_booking():
-    return admin.all_booking(cache)
+def allBooking():
+    return admin.allBooking(cache)
 
 
 # регистрации бронирования

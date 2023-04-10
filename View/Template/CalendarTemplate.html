@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/static.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/option.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Calendar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CalendarOptions.css') }}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -43,12 +43,12 @@
 <div style="text-align: center;">
     <block1>
         <bl1>
-            <form  method="post">
+            <form method="POST">
                 <h1>Календарь</h1>
                 <div id="datepicker"></div>
-                <input type="hidden" id="datepicker_value" name='val' value="18.01.2023">
-                <p><input type="submit" name='entrance' value="Выбрать"/></p>
-                <p><input type="submit" name='all_booking' value="Показать все бронирования"/></p>
+                <input type="hidden" id="datepicker_value" name='date' value="18.01.2023">
+                <p><input type="submit" name='selectDateButton' value="Выбрать"/></p>
+                <p><input type="submit" name='allBookingButton' value="Показать все бронирования"/></p>
 
                 <script>
                 let dates = {{ data.date|tojson }}
@@ -66,10 +66,6 @@
                 });
                 </script>
             </form>
-
-            {% for message in get_flashed_messages() %}
-                <div class="flash">{{ message }}</div>
-            {% endfor %}
         </bl1>
     </block1>
 </div>
