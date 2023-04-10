@@ -36,7 +36,7 @@ tr:last-child td:last-child {border-radius: 0 0 10px 0;}
 tr td:last-child {border-right: none;}
 
 .container {
-  width: 530px;
+  width: 550px;
   min-height: 500px;
   overflow-y: auto;
   max-height: 300px
