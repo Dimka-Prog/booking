@@ -16,10 +16,11 @@ def booking(date, cache):
         tableID = tables.getFreeTable(int(request.form['countPlaces']), placeID)
 
         bookingDate = str(date[-4:]) + "-" + str(date[2:4]) + "-" + str(date[0:2])
-        bookingTime = request.form['bookingTime']
+        beginBookingTime = request.form['beginBookingTime']
+        endBookingTime = request.form['endBookingTime']
         countPlaces = int(request.form['countPlaces'])
 
-        bookingModel.addBooking(tableID, guestID, bookingDate, bookingTime, countPlaces)
+        bookingModel.addBooking(tableID, guestID, bookingDate, beginBookingTime, endBookingTime,  countPlaces)
         cache.set('booking_true', 'True')
         return redirect(url_for('selectDate'))
     else:
