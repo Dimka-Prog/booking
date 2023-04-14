@@ -41,7 +41,8 @@ database.executescript('''
                         GuestID INT,
                         ScheduleID INT,
                         BookingDate DATETIME,
-                        BookingTime VARCHAR (10),
+                        BeginTime VARCHAR (10),
+                        EndTime VARCHAR (10),
                         CountPlaces INT, 
                         FOREIGN KEY (TableID) REFERENCES Tables (TableID) ON DELETE CASCADE,
                         FOREIGN KEY (ScheduleID) REFERENCES WorkSchedule (ScheduleID) ON DELETE CASCADE, 
@@ -129,12 +130,6 @@ database.executescript('''
                     ('2022-10-2', '10:00', '23:00'),
                     ('2022-10-3', '10:00', '23:00'),
                     ('2022-10-4', '10:00', '23:00');
-                    
-                    INSERT INTO Booking (TableID, BookingDate, ScheduleID, BookingTime) 
-                    SELECT TableID, WorkDate, ScheduleID, strftime('%H:%M', time(TimeBegin, '+' || 
-                           HourNumber || ' hour')) as time
-                    FROM Tables, WorkSchedule, BookingHours
-                    WHERE WorkDate = '2022-10-1' and TableNumber = 1;
                     
                     INSERT INTO BookingHours(HourNumber) VALUES 
                     (1),
