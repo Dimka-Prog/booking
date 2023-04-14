@@ -32,17 +32,18 @@ def getFreeTable(countPlaces, placeID):
     cursor = connectDB.cursor()
 
     tableID = cursor.execute(f'''
-                                SELECT TableID
-                                FROM Booking 
-                                WHERE TableID = {countPlaces}
-                               ''').fetchone()
-
-    if tableID is None:
-        tableID = cursor.execute(f'''
-                                    SELECT TableID 
-                                    FROM Tables 
-                                    WHERE CountPlaces = {countPlaces} AND PlaceID = {placeID}
-                                   ''').fetchone()
+                                SELECT TableID 
+                                FROM Tables T
+                                WHERE NOT EXISTS(
+                                   SELECT TableID
+                                   FROM Booking B
+                                   WHERE B.TableID = T.TableID
+                                ) AND CountPlaces = {countPlaces} AND PlaceID = {placeID}
+                             ''').fetchone()
 
     connectDB.close()
-    return tableID[0]
+
+    if tableID is None:
+        return None
+    else:
+        return tableID[0]
