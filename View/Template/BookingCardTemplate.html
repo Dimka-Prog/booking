@@ -72,15 +72,28 @@
                             <div class="btnBlock">
                                 <label class="labelText">
                                     Время бронирования
-                                    <select class="selectComponent" name="bookingTime">
-                                        {% for i in range(allTime|length) %}
-                                            {% if i == 0 %}
-                                                <option value={{allTime[i]}} selected>{{ allTime[i] }}</option>
-                                            {% else %}
-                                                <option value={{allTime[i]}}>{{ allTime[i] }}</option>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>
+                                    <div class="labelText selectTime">
+                                        <label class="labelTextInterval"> От </label>
+                                        <select class="selectComponent time" name="beginBookingTime">
+                                            {% for i in range(allTime|length) %}
+                                                {% if i == 0 %}
+                                                    <option value={{allTime[i]}} selected>{{ allTime[i] }}</option>
+                                                {% else %}
+                                                    <option value={{allTime[i]}}>{{ allTime[i] }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <label class="labelTextInterval"> До </label>
+                                        <select class="selectComponent time" name="endBookingTime">
+                                            {% for i in range(allTime|length) %}
+                                                {% if i == 0 %}
+                                                    <option value={{allTime[i]}} selected>{{ allTime[i] }}</option>
+                                                {% else %}
+                                                    <option value={{allTime[i]}}>{{ allTime[i] }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </label>
                                 <label class="labelText">
                                     Количество мест за столиком
