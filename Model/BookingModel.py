@@ -17,7 +17,8 @@ def getDateTime():
     date = cursor.execute('''
                             SELECT 
                                 BookingDate, 
-                                BookingTime 
+                                BeginTime,
+                                EndTime
                             FROM Booking
                            ''').fetchall()
     connectDB.close()
@@ -31,26 +32,27 @@ def getAllBooking():
     allBooking = cursor.execute('''
                             SELECT 
                                 BookingDate, 
-                                BookingTime, 
+                                BeginTime,
+                                EndTime, 
                                 G.FIO, 
-                                D.CountPlaces, 
-                                D.TableNumber 
-                            FROM Booking B 
-                                JOIN Guests G ON B.GuestID = G.GuestID 
-                                JOIN Tables D ON B.TableID = D.TableID
+                                B.CountPlaces, 
+                                T.TableNumber 
+                            FROM Booking B
+                                JOIN Guests G USING (GuestID)
+                                JOIN Tables T USING (TableID)
                             ORDER BY BookingDate
                            ''').fetchall()
     connectDB.close()
     return allBooking
 
 
-def addBooking(tableID, questID, bookingDate, bookingTime, countPlaces):
+def addBooking(tableID, guestID, bookingDate, beginTime, endTime, countPlaces):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
     cursor.execute(f'''
-                    INSERT INTO Booking (TableID, GuestID, ScheduleID, BookingDate, BookingTime, CountPlaces) 
-                    VALUES ({tableID}, {questID}, 1, '{bookingDate}', '{bookingTime}', {countPlaces})
+                    INSERT INTO Booking (TableID, GuestID, ScheduleID, BookingDate, BeginTime, EndTime, CountPlaces) 
+                    VALUES ({tableID}, {guestID}, 2, '{bookingDate}', '{beginTime}', '{endTime}', {countPlaces})
                     ''')
     connectDB.commit()
     connectDB.close()
