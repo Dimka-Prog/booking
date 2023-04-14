@@ -19,11 +19,15 @@
             <div class="container">
                 <table>
                     <tr>
-                        <th>Дата</th>
-                        <th>Время</th>
-                        <th>ФИО</th>
-                        <th>Кол-во чел.</th>
-                        <th>Номер стола</th>
+                        <th class="columnName" rowspan="2">Дата</th>
+                        <th class="columnName" colspan="2">Время</th>
+                        <th class="columnName" rowspan="2">ФИО</th>
+                        <th class="columnName" rowspan="2">Кол-во чел.</th>
+                        <th class="columnName" rowspan="2">Номер стола</th>
+                    </tr>
+                    <tr>
+                        <td class="columnName">Начало</td>
+                        <td class="columnName">Конец</td>
                     </tr>
                     {% for row in range(allBooking|length) %}
                         <tr>
