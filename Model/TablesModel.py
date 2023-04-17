@@ -27,7 +27,7 @@ def getCountPlaces():
     return countPlaces
 
 
-def getFreeTable(countPlaces, placeID):
+def getFreeTable(countPlaces, placeID, bookingDate, beginBookingTime, endBookingTime):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
@@ -37,7 +37,13 @@ def getFreeTable(countPlaces, placeID):
                                 WHERE NOT EXISTS(
                                    SELECT TableID
                                    FROM Booking B
-                                   WHERE B.TableID = T.TableID
+                                   WHERE B.TableID = T.TableID AND 
+                                         BookingDate = '{bookingDate}' AND
+                                         (('{beginBookingTime}' <= BeginTime AND '{beginBookingTime}' < EndTime) OR
+                                          ('{beginBookingTime}' >= BeginTime AND '{beginBookingTime}' < EndTime))
+                                         AND
+                                         (('{endBookingTime}' > BeginTime AND '{endBookingTime}' <= EndTime) OR
+                                          ('{endBookingTime}' > BeginTime AND '{endBookingTime}' >= EndTime)) 
                                 ) AND CountPlaces = {countPlaces} AND PlaceID = {placeID}
                              ''').fetchone()
 
