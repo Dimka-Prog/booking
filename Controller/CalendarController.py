@@ -1,4 +1,7 @@
 from flask import render_template, request, redirect, url_for
+from datetime import datetime
+from pytz import timezone
+from dateutil.parser import parse
 
 import copy
 import Model.BookingModel as booking
@@ -50,10 +53,15 @@ def selectDate(cache):
 
     if request.method == "POST":
         if 'selectDateButton' in request.form:
-            date = request.form['date'].replace('.', '')
+            date = parse(request.form['date']).date()
             return redirect(url_for('booking', date=date))
         elif 'allBookingButton' in request.form:
             return redirect(url_for('allBooking'))
     else:
         cache.clear()
-        return render_template('CalendarTemplate.html', data=data, settings=cache.get('booking_true'))
+        return render_template(
+            'CalendarTemplate.html',
+            data=data,
+            currentDate=datetime.now(timezone('Asia/Vladivostok')).strftime('%d.%m.%Y'),
+            settings=cache.get('booking_true')
+        )
