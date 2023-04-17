@@ -40,7 +40,7 @@ def getAllBooking():
                             FROM Booking B
                                 JOIN Guests G USING (GuestID)
                                 JOIN Tables T USING (TableID)
-                            ORDER BY BookingDate
+                            ORDER BY BookingDate, BeginTime
                            ''').fetchall()
     connectDB.close()
     return allBooking
@@ -63,7 +63,9 @@ def getTime(bookingDate):
     cursor = connectDB.cursor()
 
     time = cursor.execute(f'''
-                            SELECT BookingTime 
+                            SELECT 
+                                BeginTime,
+                                EndTime, 
                             FROM Booking 
                             WHERE BookingDate = '{bookingDate}'
                             ''').fetchall()
