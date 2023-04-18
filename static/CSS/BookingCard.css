@@ -2,8 +2,6 @@
 
 *, *:after, *:before {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
@@ -28,7 +26,7 @@ body {
     justify-content: center;
 }
 
-.formBlock {
+.bookingCard {
     width: 768px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -36,6 +34,7 @@ body {
     background-color: #ffffff;
     border-radius: 5px;
     padding: 15px;
+    margin-left: 20%;
 }
 
 .titleBlock {
@@ -48,7 +47,9 @@ body {
     font-size: 24px;
     text-align: center;
     font-weight: 700;
+    margin: 0;
 }
+.cardTitle.calendar {margin-bottom: 30px;}
 
 .contentBlock {
     display: grid;
@@ -154,4 +155,21 @@ body {
     border: 1px solid #003767;
     padding: 7px 25px;
     border-radius: 5px;
+}
+
+.flash {
+    padding: 10px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 28%;
+}
+.flash.success {
+    border: 1px solid #21DB56;
+    background: #AEFFC5;
+    right: -25%;
+}
+.flash.error {
+    border: 1px solid #FF4343;
+    background: #FF9C9C;
+    right: -58.5%;
 }
