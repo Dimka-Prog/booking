@@ -58,6 +58,21 @@ def addBooking(tableID, guestID, bookingDate, beginTime, endTime, countPlaces):
     connectDB.close()
 
 
+def getBookingTable(tableID):
+    connectDB = db.getConnection()
+    cursor = connectDB.cursor()
+
+    bookingTable = cursor.execute(f'''
+                                SELECT  
+                                    T.TableNumber 
+                                FROM Booking B
+                                    JOIN Tables T USING (TableID)
+                                WHERE B.TableID = {tableID}
+                               ''').fetchone()
+    connectDB.close()
+    return bookingTable[0]
+
+
 def getTime(bookingDate):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
