@@ -19,12 +19,6 @@ app.config.from_mapping(config)
 cache = Cache(app)
 
 
-# получение данных для отображения календаря резервированных дат
-@app.route('/', methods=["POST", "GET"])
-def selectDate():
-    return calendar.selectDate(cache)
-
-
 # авторизация для пользователя и администратора
 @app.route('/login', methods=["POST", "GET"])
 def login():
@@ -38,9 +32,9 @@ def allBooking():
 
 
 # регистрации бронирования
-@app.route('/booking/<date>', methods=["POST", "GET"])
-def booking(date):
-    return card.booking(date, cache)
+@app.route('/booking', methods=["POST", "GET"])
+def booking():
+    return card.booking()
 
 
 if __name__ == '__main__':
