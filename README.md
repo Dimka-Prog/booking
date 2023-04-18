@@ -1,8 +1,8 @@
 ## 1. Выбор даты для бронирования
-![image](https://user-images.githubusercontent.com/91518963/226152491-c4778c2e-52ad-4e14-b752-65f4ae2bba96.png)
-## 2. Форма пользователя для бронирования на определенную дату
-![image](https://user-images.githubusercontent.com/91518963/226152569-cb6822d1-fdd7-4daa-81c6-0a59d7a25491.png)
+![image](https://user-images.githubusercontent.com/91527667/232366344-7a22c332-0b41-446d-b567-d8d1088da6b8.png)
+## 2. Форма пользователя для бронирования на выбранную дату
+![image](https://user-images.githubusercontent.com/91527667/232366445-a8532c8c-64c8-42c2-a6e6-fffbde957318.png)
 ## 3. Форма авторизации администратора (кнопка "показать все бронирования")
-![image](https://user-images.githubusercontent.com/91518963/226152594-40ed8eec-9058-41d5-8ef6-3318a35ef9f2.png)
+![image](https://user-images.githubusercontent.com/91527667/232366490-00a14a9c-4023-46f6-b04c-2502d990ffcb.png)
 ## 4. Список всех забронированных столиков
-![image](https://user-images.githubusercontent.com/91518963/226152620-53e89ac4-1e52-4b4a-bd0c-4d5659f786d3.png)
+![image](https://user-images.githubusercontent.com/91527667/232366565-4d266a96-ef39-41af-9d64-082f89bbfc6e.png)
