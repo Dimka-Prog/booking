@@ -10,7 +10,7 @@ app = Flask(__name__, template_folder='View/Template')
 config = {
     "DEBUG": True,
     "CACHE_TYPE": "SimpleCache",
-    "CACHE_DEFAULT_TIMEOUT": 150,
+    "CACHE_DEFAULT_TIMEOUT": 250,
     "SECRET_KEY": '12345'
 }
 app.config.from_mapping(config)
@@ -30,10 +30,10 @@ def allBooking():
     return admin.allBooking(cache)
 
 
-# регистрации бронирования
-@app.route('/booking', methods=["POST", "GET"])
-def booking():
-    return card.booking()
+# карточка для регистрации бронирования
+@app.route('/booking/<guestID>', methods=["POST", "GET"])
+def booking(guestID):
+    return card.booking(guestID, cache)
 
 
 if __name__ == '__main__':
