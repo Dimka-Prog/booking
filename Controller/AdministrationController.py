@@ -4,7 +4,7 @@ import Model.BookingModel as booking
 
 
 def allBooking(cache):
-    if cache.get('login') is None:
+    if cache.get('admin') is None:
         return redirect(url_for('login'))
     else:
         clickButtonEdit = None
