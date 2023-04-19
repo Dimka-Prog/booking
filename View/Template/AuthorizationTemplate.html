@@ -12,21 +12,25 @@
         <bl1>
             <div class="container">
                 <div class="wrapper">
+                    {% for category, message in get_flashed_messages(True) %}
+                        <div class="flash {{category}}">{{ message }}</div>
+                    {% endfor %}
                     <form class="formBlock" method="POST">
                         <div class="titleBlock">
                             <h1 class="cardTitle">Вход</h1>
                         </div>
                         <div class="inputsBlock">
                             <label class="labelText">
-                                Логин
-                                <input type="text" class="formInput" name="login" placeholder="Логин" required/>
+                                <input type="email" class="formInput" name="login" placeholder="Логин" required/>
                             </label>
                             <label class="labelText">
-                                Пароль
                                 <input type="password" class="formInput" name="password" placeholder="Пароль" required>
                             </label>
                         </div>
-                        <input type="submit" class="submitButton" name="authorization" value="Войти"/>
+                        <div id="submitInput">
+                            <input type="submit" class="submitButton" name="registration" value="Регистрация"/>
+                            <input type="submit" class="submitButton" name="authorization" value="Войти"/>
+                        </div>
                     </form>
                 </div>
             </div>
