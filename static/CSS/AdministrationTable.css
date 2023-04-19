@@ -43,7 +43,7 @@ tr td:last-child {border-right: none;}
   max-height: 300px
 }
 
-block1 {
+.blockBooking {
   fort-family: sans-serif;
   padding: 40px;
   position: absolute;
