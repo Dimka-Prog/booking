@@ -1,11 +1,21 @@
 import Database.connectDB as db
 
 
-def delete():
+def removeBooking(bookingDate, beginTime, tableNumber):
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
-    cursor.execute("DELETE FROM Booking")
+    cursor.execute(f'''
+                    DELETE FROM Booking
+                    WHERE TableID = (
+                        SELECT TableID 
+                        FROM Booking
+                            JOIN Tables T USING(TableID)
+                        WHERE T.TableNumber = {tableNumber}
+                    ) AND 
+                          BookingDate = '{bookingDate}' AND
+                          BeginTime = '{beginTime}'
+                    ''')
     connectDB.commit()
     connectDB.close()
 
@@ -73,16 +83,45 @@ def getBookingTable(tableID):
     return bookingTable[0]
 
 
-def getTime(bookingDate):
+def getDates():
     connectDB = db.getConnection()
     cursor = connectDB.cursor()
 
-    time = cursor.execute(f'''
-                            SELECT 
-                                BeginTime,
-                                EndTime, 
-                            FROM Booking 
-                            WHERE BookingDate = '{bookingDate}'
+    dates = cursor.execute(f'''
+                            SELECT BookingDate 
+                            FROM Booking
+                            GROUP BY BookingDate
+                            ORDER BY BookingDate
                             ''').fetchall()
     connectDB.close()
-    return time
+    return dates
+
+
+def getBeginTimes():
+    connectDB = db.getConnection()
+    cursor = connectDB.cursor()
+
+    beginTimes = cursor.execute(f'''
+                                SELECT BeginTime 
+                                FROM Booking
+                                GROUP BY BeginTime
+                                ORDER BY BeginTime
+                                ''').fetchall()
+    connectDB.close()
+    return beginTimes
+
+
+def getTableNumbers():
+    connectDB = db.getConnection()
+    cursor = connectDB.cursor()
+
+    allTables = cursor.execute(f'''
+                                SELECT  
+                                    TableNumber 
+                                FROM Booking 
+                                    JOIN Tables USING (TableID)
+                                GROUP BY TableNumber
+                                ORDER BY TableNumber
+                               ''').fetchall()
+    connectDB.close()
+    return allTables
