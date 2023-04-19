@@ -30,8 +30,6 @@ body{
 
 .formBlock{
     width: 768px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     border: 1px solid #003767;
     background-color: #ffffff;
     border-radius: 5px;
@@ -48,6 +46,7 @@ body{
     font-size: 24px;
     text-align: center;
     font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .contentBlock{
@@ -121,31 +120,33 @@ body{
     grid-column-gap: 15px;
 }
 
+#submitInput {text-align: end;}
 .submitButton{
     padding: 8px 35px;
     background-color: #003767;
-    border-radius: 2px;
+    border-radius: 5px;
     font-weight: 700;
-    font-size: 14px;
-    line-height: 19px;
+    font-size: 15px;
+    line-height: 25px;
     color: #ffffff;
     border: none;
     cursor: pointer;
     grid-column: 2/3;
-    margin-top: 35px;
-    max-width: 50%;
-    display: grid;
+    margin-top: 30px;
+    width: 200px;
+    /*max-width: 50%;*/
+    /*display: grid;*/
     justify-self: flex-end;
 }
 
-.backHome{
-    font-size: 24px;
-    line-height: 150%;
-    font-weight: 400;
-    color: #003767;
-    cursor: pointer;
-    text-decoration: none;
-    border: 1px solid #003767;
-    padding: 7px 25px;
-    border-radius: 5px;
+.flash {
+    padding: 10px;
+}
+.flash.success {
+    border: 1px solid #21DB56;
+    background: #AEFFC5;
+}
+.flash.error {
+    border: 1px solid #FF4343;
+    background: #FF9C9C;
 }
