@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_caching import Cache
 
-import Controller.CalendarController as calendar
 import Controller.AuthorizationController as authoriz
 import Controller.AdministrationController as admin
 import Controller.BookingCardController as card
@@ -20,7 +19,7 @@ cache = Cache(app)
 
 
 # авторизация для пользователя и администратора
-@app.route('/login', methods=["POST", "GET"])
+@app.route('/', methods=["POST", "GET"])
 def login():
     return authoriz.login(cache)
 
