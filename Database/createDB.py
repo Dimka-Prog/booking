@@ -13,8 +13,17 @@ database.executescript('''
                     DROP TABLE IF EXISTS Guests;
                     CREATE TABLE Guests (
                         GuestID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        FIO VARCHAR (50),
-                        PhoneNumber VARCHAR (20)
+                        Login VARCHAR(50) NOT NULL,
+                        Password VARCHAR(50) NOT NULL,
+                        FIO VARCHAR (50) NULL,
+                        PhoneNumber VARCHAR (20) NULL
+                    );
+                    
+                    DROP TABLE IF EXISTS Staff;
+                    CREATE TABLE Staff (
+                        UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Login VARCHAR(100) NOT NULL,
+                        Password VARCHAR(100) NOT NULL
                     );
                     
                     DROP TABLE IF EXISTS Tables;
@@ -61,37 +70,9 @@ database.executescript('''
                     (2, 'yes'),
                     (2, 'no');
                     
-                    INSERT INTO Guests (FIO, PhoneNumber) VALUES
-                    ('Попов А.А.', '89147594501'),
-                    ('Сидоров А.А.', '89147594502'),
-                    ('Агапова А.А.', '89147594503'),
-                    ('Сазонтова А.А.', '89147594504'),
-                    ('Дудко А.А.', '89147594505'),
-                    ('Сорокина А.А.', '89147594506'),
-                    ('Петров А.А.', '89147594507'),
-                    ('Петрова А.А.', '89147594508'),
-                    ('Сорокин А.А.', '89147594509'),
-                    ('Агапов А.А.', '89147594510'),
-                    ('Сидорова А.А.', '89147594511'),
-                    ('Якимова А.А.', '89147594512'),
-                    ('Круглов А.А.', '89147594513'),
-                    ('Иванов А.А.', '89147594514'),
-                    ('Калашникова А.А.', '89147594515'),
-                    ('Иванова А.А.', '89147594516'),
-                    ('Хмелев А.А.', '89147594517'),
-                    ('Копийко А.А.', '89147594518'),
-                    ('Крючкова А.А.', '89147594519'),
-                    ('Калиниченко А.А.', '89147594520'),
-                    ('Шастун А.А.', '89147594521'),
-                    ('Кузнецов А.А.', '89147594522'),
-                    ('Васильева А.А.', '89147594523'),
-                    ('Соколова А.А.', '89147594524'),
-                    ('Михайлова А.А.', '89147594525'),
-                    ('Адеева А.А.', '89147594526'),
-                    ('Аксенова А.А.', '89147594527'),
-                    ('Горина А.А.', '89147594528'),
-                    ('Казанцев А.А.', '89147594529'),
-                    ('Емельянов А.А.', '89147594530');
+                    INSERT INTO Staff (Login, Password) VALUES 
+                    ('ivanov.mv@mail.ru', '123456789'),
+                    ('anastasya.vs@mail.ru', '987654321');
                     
                     INSERT INTO Tables (TableNumber, CountPlaces, PlaceID)  VALUES
                     (1, 1, 1),
