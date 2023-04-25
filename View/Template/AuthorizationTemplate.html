@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Authorization.css') }}">
+    <title>Вход</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+    <block1>
+        <bl1>
+            <div class="container">
+                <div class="wrapper">
+                    {% for category, message in get_flashed_messages(True) %}
+                        <div class="flash {{category}}">{{ message }}</div>
+                    {% endfor %}
+                    <form class="formBlock" method="POST">
+                        <div class="titleBlock">
+                            <h1 class="cardTitle">Вход</h1>
+                        </div>
+                        <div class="inputsBlock">
+                            <label class="labelText">
+                                <input type="email" class="formInput" name="login" placeholder="Логин" required/>
+                            </label>
+                            <label class="labelText">
+                                <input type="password" class="formInput" name="password" placeholder="Пароль" required>
+                            </label>
+                        </div>
+                        <div id="submitInput">
+                            <input type="submit" class="submitButton" name="registration" value="Регистрация"/>
+                            <input type="submit" class="submitButton" name="authorization" value="Войти"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </bl1>
+    </block1>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/AdministrationTable.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Administration.css') }}">
+
+    <title>Бронирования</title>
+</head>
+
+<body>
+<div style="text-align: center;">
+    <block1 class="blockBooking">
+        <form method="POST">
+            <div class="titleBlock">
+                <h1 class="cardTitle">БРОНИРОВАНИЯ</h1>
+            </div>
+            <br>
+            <div class="container">
+                <table>
+                    <tr>
+                        <th class="columnName" rowspan="2">Дата</th>
+                        <th class="columnName" colspan="2">Время</th>
+                        <th class="columnName" rowspan="2">ФИО</th>
+                        <th class="columnName" rowspan="2">Кол-во чел.</th>
+                        <th class="columnName" rowspan="2">Номер стола</th>
+                    </tr>
+                    <tr>
+                        <td class="columnName">Начало</td>
+                        <td class="columnName">Конец</td>
+                    </tr>
+                    {% for row in range(allBooking|length) %}
+                        <tr>
+                            {% for col in range(allBooking[row]|length) %}
+                                <td>{{ allBooking[row][col] }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <input type="submit" class="submitButton" name="buttonEdit" value="Редактировать"/>
+        </form>
+    </block1>
+    {% if clickButtonEdit or clickButtonDelete %}
+        <block1 class="blockBooking editor">
+            <form method="POST">
+                <label class="labelText">
+                    Дата бронирования
+                    <select class="selectComponent" name="bookingDate">
+                        {% for row in range(bookingDates|length) %}
+                            {% if row == 0 %}
+                                <option value='{{bookingDates[row][0]}}' selected> {{ bookingDates[row][0] }} </option>
+                            {% else %}
+                                <option value='{{bookingDates[row][0]}}'>{{ bookingDates[row][0] }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </label>
+                <label class="labelText">
+                    Время начала брони
+                    <select class="selectComponent" name="beginTime">
+                        {% for row in range(bookingBeginTime|length) %}
+                            {% if row == 0 %}
+                                <option value='{{bookingBeginTime[row][0]}}' selected> {{ bookingBeginTime[row][0] }} </option>
+                            {% else %}
+                                <option value='{{bookingBeginTime[row][0]}}'>{{ bookingBeginTime[row][0] }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </label>
+                <label class="labelText">
+                    Номер столика
+                    <select class="selectComponent" name="tableNumber">
+                        {% for row in range(bookingTableNumbers|length) %}
+                            {% if row == 0 %}
+                                <option value={{bookingTableNumbers[row][0]}} selected> {{ bookingTableNumbers[row][0] }} </option>
+                            {% else %}
+                                <option value={{bookingTableNumbers[row][0]}}>{{ bookingTableNumbers[row][0] }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </label>
+                <input type="submit" class="submitButton delete" name="buttonDelete" value="Удалить"/>
+            </form>
+        </block1>
+    {% endif %}
+</div>
+</body>
+</html>

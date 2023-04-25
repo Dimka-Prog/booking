@@ -1,0 +1,92 @@
+#calendarBlock1 {
+    fort-family: sans-serif;
+    padding: 19px;
+    position: absolute;
+    top: 50%;
+    right: 33.5%;
+    transform: translate(-50%, -50%);
+    background: #ffffff; /*#34495e;*/
+    border: 1px solid #003767;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 105%;
+}
+
+bl1 {margin: 0 100px 200px 50%; width: 300px;}
+
+hr:link {
+    color: #497DDD;;
+    border-bottom: 1px dashed;
+}
+
+hr:hover {
+    color: #003767;
+    border-bottom: .07em solid;
+}
+
+.backHome {
+    font-size: 24px;
+    line-height: 150%;
+    font-weight: 400;
+    color: #003767;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid #003767;
+    padding: 7px 25px;
+    border-radius: 5px;
+}
+
+a:hover{background: #ffffff;}
+
+li {float: left;}
+  
+ul.hr {
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 0; /* Значение полей */
+}
+
+ul.hr li {
+    display: inline; /* Отображать как строчный элемент */
+    margin-right: 0; /* Отступ слева */
+    padding: 3px; /* Поля вокруг текста */
+}
+
+.ui-datepicker-trigger {
+	margin-left: 5px;
+	position: relative;
+	top: 3px;
+	cursor: pointer;
+}
+
+{
+  box-sizing: border-box;
+}
+
+.__select {
+  position: relative;
+  width: 210px;
+  height: 21px;
+  margin: 0 auto;
+
+  &[data-state="active"] {
+    .__select__title {
+      &::before {
+        transform: translate(-3px, -50%) rotate(-45deg);
+      }
+
+      &::after {
+        transform: translate(3px, -50%) rotate(45deg);
+      }
+    }
+
+    .__select__content {
+      opacity: 1;
+    }
+
+    .__select__label + .__select__input + .__select__label {
+      max-height: 40px;
+      border-top-width: 1px;
+    }
+  }
+}
+  

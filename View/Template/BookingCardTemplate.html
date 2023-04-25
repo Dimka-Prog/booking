@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BookingCard.css') }}">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Calendar.css') }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+    /* Локализация datepicker */
+    $.datepicker.regional['ru'] = {
+        closeText: 'Закрыть',
+        prevText: 'Предыдущий',
+        nextText: 'Следующий',
+        currentText: 'Сегодня',
+        monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+        dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+        weekHeader: 'Не',
+        dateFormat: 'dd.mm.yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+    </script>
+
+    <title>Карточка бронирования</title>
+</head>
+
+<body>
+<div style="text-align: center;">
+    <block1>
+        <bl7>
+            <div class="container">
+                <div class="wrapper">
+                    <form method="POST">
+                        <div id="calendarBlock1">
+                            <bl1>
+                                <h1 class="cardTitle calendar">Календарь</h1>
+                                <div id="datepicker"></div>
+                                <input type="hidden" id="datepicker_value" name='date' value="{{currentDate}}">
+                                <script>
+                                    let dates = {{data.date | tojson}}
+                                    $(function () {
+                                        $("#datepicker").datepicker({
+                                            minDate: 0,
+                                            onSelect: function (date) {
+                                                $('#datepicker_value').val(date)
+                                            },
+                                            beforeShowDay: function (date) {
+                                                let string = jQuery.datepicker.formatDate('yy-mm-dd', date)
+                                                return [dates.indexOf(string) == -1]
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </bl1>
+                        </div>
+                        <div class="bookingCard">
+                            <div class="titleBlock">
+                                <h1 class="cardTitle">Карточка бронирования</h1>
+                            </div>
+                            <div class="contentBlock">
+                                <div class="inputsBlock">
+                                    <label class="labelText">
+                                        Ваше ФИО
+                                        <input type="text" class="formInput" name="fio" placeholder="Фамилия И. О."
+                                               maxlength="20"
+                                               required/>
+                                    </label>
+                                    <label class="labelText">
+                                        Ваш номер телефона
+                                        <input type="text" class="formInput phone" name="phoneNumber"
+                                               placeholder="Номер телефона" maxlength="12" required>
+                                    </label>
+                                    <script>
+                                        $(".phone").mask("+7(999)999-9999");
+                                    </script>
+                                </div>
+                                <div class="labelsBlockLayout">
+                                    <div class="checkTable">
+                                        <label class="labelText">
+                                            Этаж столика
+                                        </label>
+                                        <div class="radioButtons">
+                                            <label for="first_floor"> Этаж 1 </label>
+                                            <input type="radio" id="first_floor" name="floor" value="1" checked>
+                                        </div>
+                                        <div class="radioButtons">
+                                            <label for="second_floor"> Этаж 2 </label>
+                                            <input type="radio" id="second_floor" name="floor" value="2">
+                                        </div>
+                                    </div>
+
+                                    <div class="checkTable">
+                                        <label class="labelText">
+                                            Расположение столика
+                                        </label>
+                                        <div class="radioButtons">
+                                            <label for="window_yes"> У окна </label>
+                                            <input type="radio" id="window_yes" name="window" value="yes" checked>
+                                        </div>
+                                        <div class="radioButtons">
+                                            <label for="window_no"> Не у окна </label>
+                                            <input type="radio" id="window_no" name="window" value="no">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btnBlock">
+                                    <label class="labelText">
+                                        Время бронирования
+                                        <div class="labelText selectTime">
+                                            <label class="labelTextInterval"> От </label>
+                                            <select class="selectComponent time" name="beginBookingTime">
+                                                {% for i in range(allTime|length) %}
+                                                    {% if i == 0 %}
+                                                        <option value={{allTime[i]}} selected>{{ allTime[i] }}</option>
+                                                    {% else %}
+                                                        <option value={{allTime[i]}}>{{ allTime[i] }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                            <label class="labelTextInterval"> До </label>
+                                            <select class="selectComponent time" name="endBookingTime">
+                                                {% for i in range(allTime|length) %}
+                                                    {% if i == 0 %}
+                                                        <option value={{allTime[i]}} selected>{{ allTime[i] }}</option>
+                                                    {% else %}
+                                                        <option value={{allTime[i]}}>{{ allTime[i] }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </label>
+                                    <label class="labelText">
+                                        Количество мест за столиком
+                                        <select class="selectComponent" name="countPlaces">
+                                            {% for i in range(countPlaces|length) %}
+                                                {% if i == 0 %}
+                                                    <option value={{countPlaces[i][0]}} selected>
+                                                        {{ countPlaces[i][0] }}
+                                                    </option>
+                                                {% else %}
+                                                    <option value={{countPlaces[i][0]}}>{{ countPlaces[i][0] }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                </div>
+                                <input type="submit" name="createBooking" class="submitButton" value="Забронировать"/>
+                            </div>
+                        </div>
+                    </form>
+                    {% for category, message in get_flashed_messages(True) %}
+                        <div class="flash {{category}}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </bl7>
+    </block1>
+</div>
+</body>
+</html>
